@@ -12,7 +12,7 @@ Desarrolladores:
 - Modelo de usuarios/escritores -x
 - Registro e inicio de session
 - usar JWT y bcrypt
-- usar dotenv para guardar las credenciales
+- usar dotenv para guardar las credenciales -x
 - CRUD de /entries con capacidad de consultar por id (GET /entries/:id)
 - CRUD de /writers con capacidad de consultar por id (GET /writers/:id)
 /auth con login y registro
