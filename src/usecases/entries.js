@@ -2,7 +2,7 @@
 const Entries = require('../models/entry')
 
 function getAll() {
-  return Entries.find()
+  return Entries.find().populate('writer')
 }
 
 function create(EntriesData) {

@@ -23,7 +23,9 @@ router.get('/', async (request, response) => {
 router.post('/', auth, async (request, response) => {
   try {
     const newEntriesData = request.body
+    console.log(newEntries)
     const newEntries = await entries.create(newEntriesData)
+
     response.json({
       success: true,
       data: newEntries,
@@ -36,7 +38,7 @@ router.post('/', auth, async (request, response) => {
   }
 })
 
-router.delete('/:id',auth, async (request, response) => {
+router.delete('/:id', auth, async (request, response) => {
   try {
     const id = request.params.id
     await entries.deleteById(id)
@@ -54,7 +56,7 @@ router.delete('/:id',auth, async (request, response) => {
   }
 })
 
-router.patch('/:id', auth,async (request, response) => {
+router.patch('/:id', auth, async (request, response) => {
   try {
     const id = request.params.id
     const newData = request.body

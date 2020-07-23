@@ -19,12 +19,18 @@ const entriesSchema = new moongose.Schema({
   },
   image: {
     type: String,
+    required: true,
   },
   date: {
     type: Date,
   },
+  content: {
+    type: String,
+    required: true,
+  },
   isPopular: {
     type: Boolean,
+    required: true,
   },
 })
 
