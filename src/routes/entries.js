@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 
 const entries = require('../usecases/entries')
+const auth = require('../middlewares/auth')
 
 router.get('/', async (request, response) => {
   try {
@@ -19,7 +20,7 @@ router.get('/', async (request, response) => {
   }
 })
 
-router.post('/', async (request, response) => {
+router.post('/', auth, async (request, response) => {
   try {
     const newEntriesData = request.body
     const newEntries = await entries.create(newEntriesData)
@@ -35,7 +36,7 @@ router.post('/', async (request, response) => {
   }
 })
 
-router.delete('/:id', async (request, response) => {
+router.delete('/:id',auth, async (request, response) => {
   try {
     const id = request.params.id
     await entries.deleteById(id)
@@ -53,7 +54,7 @@ router.delete('/:id', async (request, response) => {
   }
 })
 
-router.patch('/:id', async (request, response) => {
+router.patch('/:id', auth,async (request, response) => {
   try {
     const id = request.params.id
     const newData = request.body

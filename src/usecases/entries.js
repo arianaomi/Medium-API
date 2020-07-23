@@ -17,7 +17,11 @@ function updateById(idEntries, newData) {
   return Entries.findByIdAndUpdate(idEntries, newData)
 }
 async function getById(id) {
-  return await Entries.findOne({ _id: id }).populate('writer')
+  const entriesById = await Entries.findOne({ _id: id }).populate('writer')
+  if (!entriesById) {
+    throw new Error('Dato incorrecto')
+  }
+  return entriesById
 }
 
 module.exports = {
