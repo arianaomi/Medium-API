@@ -19,11 +19,11 @@ router.get('/', async (request, response) => {
     })
   }
 })
-
-router.post('/', auth, async (request, response) => {
+//! Agregat auth
+router.post('/', async (request, response) => {
   try {
     const newEntriesData = request.body
-    console.log(newEntries)
+    console.log(newEntriesData)
     const newEntries = await entries.create(newEntriesData)
 
     response.json({
@@ -31,6 +31,7 @@ router.post('/', auth, async (request, response) => {
       data: newEntries,
     })
   } catch (error) {
+    console.log(error)
     response.status(400).json({
       success: false,
       error: error.message,
