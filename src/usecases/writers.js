@@ -1,9 +1,8 @@
 //
 const Writers = require('../models/writer')
 
-const bycrypt = require('../lib/bcrypt')
+const bcrypt = require('../lib/bcrypt')
 const jwt = require('../lib/jwt')
-const writer = require('../models/writer')
 
 function getAll() {
   return Writers.find()
@@ -21,7 +20,11 @@ function updateById(idWriters, newData) {
   return Writers.findByIdAndUpdate(idWriters, newData)
 }
 async function getById(id) {
-  return await Writers.findOne({ _id: id })
+  const writerById = await Writers.findOne({ _id: id })
+  if (!writerById) {
+    throw new Error('Dato incorrecto')
+  }
+  return writerById
 }
 
 //! Creando writer
@@ -31,7 +34,7 @@ async function signup(writerData) {
   if (writerByEmail) {
     throw new Error(' Usuario ya existente')
   }
-  const passwordEncripted = await bycrypt.hash(password)
+  const passwordEncripted = await bcrypt.hash(password)
   return Writers.create({
     ...writerData,
     password: passwordEncripted,
@@ -40,10 +43,13 @@ async function signup(writerData) {
 
 async function login(email, passwordPlain) {
   const writerByEmail = await Writers.findOne({ email })
+  console.log(writerByEmail)
   if (!writerByEmail) {
     throw new Error('Datos incorrectos')
   }
-  const isValid = await bycrypt.compare(passwordPlain, writerByEmail.email)
+  console.log('hola')
+  const isValid = await bcrypt.compare(passwordPlain, writerByEmail.password)
+  console.log(isValid)
   if (!isValid) {
     throw new Error('Datos incorrectos')
   }
