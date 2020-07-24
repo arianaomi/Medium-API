@@ -19,8 +19,8 @@ router.get('/', async (request, response) => {
     })
   }
 })
-//! Agregat auth
-router.post('/', async (request, response) => {
+
+router.post('/', auth,async (request, response) => {
   try {
     const newEntriesData = request.body
     console.log(newEntriesData)

@@ -5,7 +5,10 @@ const router = express.Router()
 const writers = require('../usecases/writers')
 const auth = require('../middlewares/auth')
 
-router.get('/', auth, async (request, response) => {
+//middleware nivel router 
+router.use(auth)
+
+router.get('/', async (request, response) => {
   try {
     const allWriters = await writers.getAll()
     response.json({
@@ -20,7 +23,7 @@ router.get('/', auth, async (request, response) => {
   }
 })
 
-router.post('/', auth, async (request, response) => {
+router.post('/', async (request, response) => {
   try {
     const newWritersData = request.body
     const newWriters = await writers.create(newWritersData)
@@ -36,7 +39,7 @@ router.post('/', auth, async (request, response) => {
   }
 })
 
-router.delete('/:id', auth, async (request, response) => {
+router.delete('/:id',  async (request, response) => {
   try {
     const id = request.params.id
     await writers.deleteById(id)
@@ -54,7 +57,7 @@ router.delete('/:id', auth, async (request, response) => {
   }
 })
 
-router.patch('/:id', auth, async (request, response) => {
+router.patch('/:id',  async (request, response) => {
   try {
     const id = request.params.id
     const newData = request.body
@@ -73,11 +76,10 @@ router.patch('/:id', auth, async (request, response) => {
   }
 })
 
-router.get('/:id', auth, async (request, response) => {
+router.get('/:id',  async (request, response) => {
   try {
     const id = request.params.id
     const writersData = await writers.getById(id)
-    
 
     response.json({
       success: true,

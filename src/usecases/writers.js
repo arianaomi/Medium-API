@@ -47,9 +47,9 @@ async function login(email, passwordPlain) {
   if (!writerByEmail) {
     throw new Error('Datos incorrectos')
   }
-  console.log('hola')
+  //console.log('hola')
   const isValid = await bcrypt.compare(passwordPlain, writerByEmail.password)
-  console.log(isValid)
+ // console.log("isValid",isValid)
   if (!isValid) {
     throw new Error('Datos incorrectos')
   }
